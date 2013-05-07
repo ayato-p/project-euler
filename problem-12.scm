@@ -24,6 +24,8 @@
 
 (define (test)
   (let loop ((i 1))
-    (cond [(<= 500 (divisor-count (fold + 0 (iota i 1)))) (fold + 0 (iota i 1))]
-	  [else (loop (+ i 1))])))
+    (if (<= 500 (divisor-count (fold + 0 (iota i 1))))
+	(fold + 0 (iota i 1))
+	(loop (+ i 1)))))
 (test) 
+
