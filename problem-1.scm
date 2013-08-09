@@ -19,3 +19,13 @@
     (ep1-iter sum (inc count) max))))
 
 (euler-problem-1 1000)
+
+;;----------------------------------------
+(apply +
+       (filter (^x (or (zero? (mod x 3))
+			 (zero? (mod x 5))))
+	       (iota 1000)))
+
+
+
+

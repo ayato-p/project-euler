@@ -3,14 +3,15 @@
 
 (define *names-text* "./problem-22/names.txt")
 
-(apply +
-       (let ((num 0))
-	 (map (^x (* (inc! num) (name->score x)))
-	      (sort
-	       (car (call-with-input-file *names-text*
-		      (^p (port->list (make-csv-reader #\,) p))))
-	       (lambda (x y) (string<? x y))))))
+
+(let1 num 0
+      (fold (lambda (x y) (+ (* (inc! num) (name->score x)) y))
+	    0
+	    (sort (with-input-from-file *names-text*
+		    (make-csv-reader #\,))
+		  string<?)))
 
 (define (name->score name)
-  (apply + (map (^x (- (char->integer x) 64))
-		(string->list name))))
+  (fold (lambda (x y) (+ (- (char->integer x) 64) y))
+	0
+	(string->list name)))
