@@ -1,6 +1,5 @@
 (use math.prime)
 (use gauche.sequence)
-(use util.combinations)
 (use srfi-13)
 
 (define (circulars n)
@@ -20,8 +19,3 @@
 (length
  (filter circular-prime?
 	 (take-while (^n (< n (expt 10 6))) *primes*)))
-
-
-
-
-    
