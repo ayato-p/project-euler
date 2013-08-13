@@ -30,7 +30,7 @@
        (let ((il (ref data depth))
 	     (jl (ref data (+ depth 1))))
 	 (append
-	  (take data depth)hh
+	  (take data depth)
 	  `(,(map-with-index (^(i x)
 			       (+ x (max (ref jl i) (ref jl (+ i 1)))))
 			     il)))))))
