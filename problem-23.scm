@@ -1,5 +1,6 @@
 (use math.prime)
 (use gauche.sequence)
+(use util.combinations)
 
 (define (sum-of-divisor x)
   (apply *
@@ -16,16 +17,22 @@
 ;;---
 (define nal (filter non-abundant? (iota 28123 1)))
 
-(length
- (filter (^x (<= x 28123))
-	 (let loop ((ls nal))
-	   (if (null? ls)
-	       '()
-	       (append (map (^x (+ x (car ls)))
-			    nal)
-		       (loop (cdr ls)))))))
+(define data (make-list 28124 0))
 
+(for-each
+ (^i
+  (for-each
+   (^j
+    (let1 sum (+ i j)
+      (if (> sum 28123)
+	  #f
+	  (set! (ref data sum) sum))))
+   nal))
+ nal)
 
-
-
-
+(let loop ((n 0) (ans 0))
+  (if (> n 28123)
+      ans
+      (loop (+ n 1)(if (zero? (ref data n))
+		       (+ n ans)
+		       ans))))

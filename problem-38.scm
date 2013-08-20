@@ -3,28 +3,24 @@
 (use gauche.sequence)
 (use srfi-13)
 
-(define-constant *pandigital-pultiples*
-  (sort 
-   (map (^l (apply string-append
-		   (map number->string
-			l)))
-	(permutations (iota 9 1)))
-   string>))
+(length (combinations (iota 1000 1) 3)
 
-(define (string-slices str len)
-  (map list->string (slices (string->list str) len)))
+(define ans
+  (map-with-index (^(i x) (cons (+ i 1) x))
+		  (make-list (expt 10 3) 0)))
 
 
-(let ((len 0))
-  (map (^(str) (map string->number (string-slices str len)))
-       (take *pandigital-pultiples* 10)))
-
-(string-slices "hoge" )
-
-(let1 n 192384576
-  (let loop ((len 2)))
-  (let loop ((i 1))
-    ()
+;; a < b < c
 
 
+(apply +
+       (map (^x (* x x))
+	    `(30 40)))
+
+
+(let ((a 20) (b 48) (p 120))
+  (= (* p p)
+     (+ (* 2 a p)
+	(-(* 2 a b))
+	(* 2 b p))))
 
